@@ -1,7 +1,6 @@
 # Imports
 
 from puzzle import Puzzle
-from heuristic import greedy_algorithm, prints_the_movement_history
 
 # Execution
 
