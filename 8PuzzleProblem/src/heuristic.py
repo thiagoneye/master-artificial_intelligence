@@ -18,7 +18,7 @@ def manhattan_distance(index1, index2) -> int:
 
 def local_objective(puzzle, value) -> int:
     """
-    Calculate the difference between the current state of a value and the goal state of that value.
+    Calculate the difference between the current state of a index and the goal state of that index.
     """
     puzzle_index = puzzle.index(value)
 
