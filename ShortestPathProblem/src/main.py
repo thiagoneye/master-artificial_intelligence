@@ -107,8 +107,8 @@ if __name__ == "__main__":
     # Inputs
     switching_time = 4 # minutes
     mean_velocity = 30 # km/h
-    origin = "E07"
-    destination = "E11"
+    origin = "E01"
+    destination = "E12"
 
     # Data Reading
     distances = pd.read_excel("ShortestPathProblem/data/subway_distances.xlsx")
