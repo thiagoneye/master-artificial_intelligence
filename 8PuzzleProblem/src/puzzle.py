@@ -42,10 +42,15 @@ class Puzzle:
             self[blank_index], self[blank_index + 3] = self[blank_index + 3], self[blank_index]
 
     def copy(self):
-        return copy.copy(self)
+        new_puzzle = Puzzle()
+        new_puzzle._state_space = copy.deepcopy(self._state_space)
+        return new_puzzle
 
     def __getitem__(self, index):
         return self._state_space[int(index/3)][index%3]
     
     def __repr__(self):
         return repr(self._state_space)
+    
+    def __eq__(self, other):
+        return isinstance(other, Puzzle) and self._state_space == other._state_space
