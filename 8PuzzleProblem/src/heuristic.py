@@ -115,18 +115,16 @@ class AStar:
         self._closed_list = [puzzle]  # Puzzle List
 
     def run(self):
-        distance_to_the_target = total_objective(self.current_state.puzzle)
+        while not self._goal_reached():
+            self._expand_current_state()
+            self._select_next_state()
+    
+    def _goal_reached(self):
+        return total_objective(self.current_state.puzzle) == 0
 
-        while distance_to_the_target > 0:
-            self._get_next_states()
-            distance_to_the_target = total_objective(self.current_state.puzzle)
-
-    def _get_next_states(self):
-        possible_moves = ["right", "left", "up", "down"]
-
-        for move in possible_moves:
-            new_puzzle = self.current_state.puzzle.copy()
-            new_puzzle = text_to_move(new_puzzle, move)
+    def _expand_current_state(self):
+        for move in ["right", "left", "up", "down"]:
+            new_puzzle = text_to_move(self.current_state.puzzle.copy(), move)
 
             if new_puzzle != self.current_state.puzzle:
                 if new_puzzle not in self._closed_list:
@@ -134,6 +132,7 @@ class AStar:
                         MovementHistory(new_puzzle, self.current_state)
                     )
 
+    def _select_next_state(self):
         self._open_list = sorted(self._open_list)
         self.current_state = self._open_list.pop(0)
         self._closed_list.append(self.current_state.puzzle)
