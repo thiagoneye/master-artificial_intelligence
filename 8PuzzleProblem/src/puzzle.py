@@ -3,13 +3,14 @@
 from random import shuffle
 import copy
 
-# Implementation
+# Implementations
 
 
 class Puzzle:
     def __init__(self):
         self._state_space = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
+    def generate(self):
         default_values = list(range(9))
         shuffle(default_values)
 
@@ -68,7 +69,25 @@ class Puzzle:
         self._state_space[row][col] = value
 
     def __repr__(self):
-        return repr(self._state_space)
+        return f"Puzzle({self._state_space})"
 
     def __eq__(self, other):
         return isinstance(other, Puzzle) and self._state_space == other._state_space
+
+    def __ne__(self, other):
+        return isinstance(other, Puzzle) and self._state_space != other._state_space
+
+
+def is_solvable(puzzle: Puzzle) -> bool:
+    """
+    Checks if an 8-puzzle configuration is solvable.
+    """
+    flat = [tile for row in puzzle._state_space for tile in row if tile != 0]
+    inversions = 0
+
+    for i in range(len(flat)):
+        for j in range(i + 1, len(flat)):
+            if flat[i] > flat[j]:
+                inversions += 1
+
+    return inversions % 2 == 0
